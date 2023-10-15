@@ -1,0 +1,107 @@
+      <!DOCTYPE html>
+<html>
+<head>       
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Flight ticket booking</title>
+    <style>
+        body {
+     background: linear-gradient(rgba(243, 237, 237, 0.7),rgba(255, 255, 255, 0.7)),url('hos.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+
+        }
+        .container {
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            width: 800px; 
+        }
+        .container label,
+        .container input {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert alert-danger text-center" id="topAlert" style="display: none;"></div>
+    <div class="container">
+        <h1>Flight ticket bookings</h1>
+        <form id="signupForm" onsubmit="return validateForm()">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required> 
+            <div class="invalid-feedback">Please fill out this field.</div>
+            <div class="invalid-feedback">Please fill out this field.</div> 
+
+            
+
+            <button type="submit" onclick="validateForm()">Signup</button>
+        </form>
+        <p id="errorMessage" class="error"></p>
+    </div>
+    <div class="text-center mt-3">
+    </div>
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var errorMessage = document.getElementById("errorMessage");
+            errorMessage.innerHTML = "";
+
+            if (name === "" || email === "null" || password === "null" || password !== confirmPassword) {
+                window.alert("Invalid input! Please fill out all required fields correctly.");
+                return false;
+            }
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                errorMessage.innerHTML = "Invalid email address.";
+                return false;
+            }
+
+            if (email === "") {
+                errorMessage.innerHTML = "Email is required.";
+                return false;
+            }
+
+            if (password === "") {
+                errorMessage.innerHTML = "Password is required.";
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                errorMessage.innerHTML = "Passwords do not match.";
+                return false;
+            }
+
+            
+            var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+            if (!passwordPattern.test(password)) {
+                errorMessage.innerHTML = "Password must contain at least 8 characters including at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>
